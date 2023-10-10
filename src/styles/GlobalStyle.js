@@ -18,6 +18,9 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     background-color: transparent;
   }
+  input:focus, textarea {
+    outline: none;
+  }
 `;
 
 export default GlobalStyle;

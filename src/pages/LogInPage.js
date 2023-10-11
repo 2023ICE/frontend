@@ -17,7 +17,7 @@ const LogInPage = () => {
 };
 
 const LogInBox = styled.div`
-  margin: 200px auto 0;
+  margin: 230px auto 0;
   display: flex;
   flex-direction: column;
 `;
@@ -30,7 +30,7 @@ const Title = styled.p`
 const SignUpBtn = styled.button`
   margin: 16px 25px 0 0;
   align-self: end;
-  font-size: ${({ theme }) => theme.fontsize.DEFAULT};
+  font-size: ${({ theme }) => theme.fontsize.MEDIUM_TXT};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.GRAY};
 `;

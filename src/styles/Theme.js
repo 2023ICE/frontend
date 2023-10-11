@@ -11,6 +11,7 @@ export const Theme = {
     TITLE: '24px',
     S_TITLE: '18px',
     DEFAULT: '16px',
+    MEDIUM_TXT: '14px',
     SMALL_TXT: '12px',
   },
   fontweight: {

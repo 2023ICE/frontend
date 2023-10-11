@@ -1,7 +1,13 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 import LogInInput from '../ui/LogInInput';
 
 const LogInForm = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleEye = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   return (
     <StyledLogInForm>
       <LogInInput
@@ -13,8 +19,10 @@ const LogInForm = () => {
       <LogInInput
         inputId="password"
         label="비밀번호"
-        type="password"
+        type={isOpen ? 'text' : 'password'}
         placeholder="비밀번호를 입력해주세요."
+        toggleEye={toggleEye}
+        eyeState={isOpen}
       />
       <SubmitBtn>로그인</SubmitBtn>
     </StyledLogInForm>

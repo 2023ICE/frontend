@@ -18,6 +18,10 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     background-color: transparent;
   }
+  input{
+    padding: 0;
+    margin: 0;
+  }
   input:focus, textarea {
     outline: none;
   }

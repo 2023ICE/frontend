@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const PageLayout = ({ children }) => {
-  return <PageContainer>{children}</PageContainer>;
+const PageLayout = ({ children, ...attrProps }) => {
+  return <PageContainer {...attrProps}>{children}</PageContainer>;
 };
 
 const PageContainer = styled.div`

@@ -6,6 +6,7 @@ import MainPage from './pages/MainPage';
 import LogInPage from './pages/LogInPage';
 import SignUpPage from './pages/SignUpPage';
 import AllergyPage from './pages/AllergyPage'
+import ResultPage from './pages/ResultPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/login" element={<LogInPage />} />
             <Route path="/signUp" element={<SignUpPage />} />
             <Route path="/allergies" element={<AllergyPage />} />
+            <Route path="/results" element={<ResultPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

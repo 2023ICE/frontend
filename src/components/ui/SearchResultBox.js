@@ -1,17 +1,26 @@
 import styled from 'styled-components';
+import AddComma from '../container/AddComma';
 import DEFAULT_IMG from '../../assets/images/default_img.svg';
 
-const SearchResultBox = () => {
+const SearchResultBox = ({ data }) => {
+  const { name, imageUrl, ingredient, cause } = data;
+
   return (
     <ResultBoxContainer>
       <ImgBox>
         <FoodImg src={DEFAULT_IMG} />
       </ImgBox>
       <Content>
-        <FoodName>단호박 피자</FoodName>
+        <FoodName>{name}</FoodName>
         <ResultBox>
-          생크림, 모짜렐라치즈가 <br />
-          유제품 알러지에 위험합니다!
+          <AddComma items={ingredient} color="#FF8A73" />
+          {ingredient.length !== 0 && (
+            <>
+              이(가) <br />
+            </>
+          )}
+          <AddComma items={cause} color="#FF8A73" />
+          {cause.length !== 0 ? `알러지에 위험합니다!` : `안전합니다!`}
         </ResultBox>
       </Content>
     </ResultBoxContainer>
@@ -20,7 +29,7 @@ const SearchResultBox = () => {
 
 const ResultBoxContainer = styled.div`
   width: 100%;
-  padding: 15px 10px;
+  padding: 15px 5px;
   min-height: 160px;
   display: flex;
   align-items: center;
@@ -40,13 +49,18 @@ const FoodImg = styled.img`
   width: 100%;
   object-fit: cover;
 `;
-const Content = styled.div``;
+const Content = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
 const FoodName = styled.p`
   font-size: ${({ theme }) => theme.fontsize.S_TITLE};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
 `;
 const ResultBox = styled.div`
-  margin-top: 20px;
+  line-height: 20px;
   font-size: ${({ theme }) => theme.fontsize.DEFAULT};
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};
 `;

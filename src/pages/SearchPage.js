@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import SearchResultBox from '../components/ui/SearchResultBox';
 import SearchBar_Line from '../components/ui/SearchBar_Line';
 import PageLayout from '../components/layout/PageLayout';
+import SEARCH_RESULT_DATA from '../assets/dummy_data/searchPageData.json';
 
 const SearchPage = () => {
   return (
@@ -10,10 +11,9 @@ const SearchPage = () => {
         <TiTle>Aller Check</TiTle>
         <SearchBar_Line />
         <ListWrapper>
-          <SearchResultBox />
-          <SearchResultBox />
-          <SearchResultBox />
-          <SearchResultBox />
+          {SEARCH_RESULT_DATA.result.map((data) => (
+            <SearchResultBox key={name} data={data} />
+          ))}
         </ListWrapper>
       </ContentWrapper>
     </PageLayout>
@@ -36,7 +36,7 @@ const TiTle = styled.p`
 const ListWrapper = styled.div`
   padding: 10px 5px;
   width: 100%;
-  max-height: 80%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 15px;

@@ -1,18 +1,15 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import PageLayout from '../components/layout/PageLayout';
 import LogInForm from '../components/form/LogInForm';
 
 const LogInPage = () => {
   const navigate = useNavigate();
   return (
-    <PageLayout>
-      <LogInBox>
-        <Title>로그인</Title>
-        <LogInForm />
-        <SignUpBtn onClick={() => navigate('/signUp')}>회원가입</SignUpBtn>
-      </LogInBox>
-    </PageLayout>
+    <LogInBox>
+      <Title>로그인</Title>
+      <LogInForm />
+      <SignUpBtn onClick={() => navigate('/signUp')}>회원가입</SignUpBtn>
+    </LogInBox>
   );
 };
 

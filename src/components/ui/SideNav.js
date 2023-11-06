@@ -5,7 +5,7 @@ const SideNav = ({ ...attrProps }) => {
   return (
     <StyledSideNav {...attrProps}>
       <Button>
-        <IconImg src={PERSON_ICON} alt='마이페이지 아이콘' />
+        <IconImg src={PERSON_ICON} alt="마이페이지 아이콘" />
       </Button>
     </StyledSideNav>
   );
@@ -15,7 +15,10 @@ const StyledSideNav = styled.nav`
   display: flex;
   justify-content: end;
 `;
-const Button = styled.button``;
+const Button = styled.button`
+  width: 40px;
+  height: 40px;
+`;
 const IconImg = styled.img`
   width: 100%;
   height: 100%;

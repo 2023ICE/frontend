@@ -1,16 +1,13 @@
 import AllergyForm from '../components/form/AllergyForm';
-import PageLayout from '../components/layout/PageLayout';
 import styled from 'styled-components';
 
-
-const AllergyPage = () =>{
-    return(
-        <PageLayout>
-            <Title>알러지가 있는 재료를 선택해주세요</Title>
-            <AllergyForm />
-        </PageLayout>
-        
-    );
+const AllergyPage = () => {
+  return (
+    <>
+      <Title>알러지가 있는 재료를 선택해주세요</Title>
+      <AllergyForm />
+    </>
+  );
 };
 
 const Title = styled.p`

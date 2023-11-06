@@ -1,12 +1,7 @@
 import styled from 'styled-components';
-import PageLayout from '../components/layout/PageLayout';
 
 const SignUpPage = () => {
-  return (
-    <PageLayout>
-      <Title>회원 정보를 입력해주세요</Title>
-    </PageLayout>
-  );
+  return <Title>회원 정보를 입력해주세요</Title>;
 };
 
 const Title = styled.p`

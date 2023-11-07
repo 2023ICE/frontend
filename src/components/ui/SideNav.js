@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import PERSON_ICON from '../../assets/icons/person.svg';
+import { useNavigate } from 'react-router-dom';
 
 const SideNav = ({ ...attrProps }) => {
+  const navigate = useNavigate();
   return (
     <StyledSideNav {...attrProps}>
-      <Button>
+      <Button onClick={() => navigate('/allergies')}>
         <IconImg src={PERSON_ICON} alt="마이페이지 아이콘" />
       </Button>
     </StyledSideNav>

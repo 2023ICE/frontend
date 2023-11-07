@@ -1,11 +1,20 @@
 import styled from 'styled-components';
 import SEARCH_ICON from '../../assets/icons/search_pink.svg';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBarSquare = ({ ...attrProps }) => {
+  const navigate = useNavigate();
+
   return (
     <StyledInput {...attrProps}>
       <Input autoFocus placeholder="메뉴명을 입력하세요." />
-      <img src={SEARCH_ICON} alt='콘검색 아이콘'/>
+      <Button>
+        <img
+          src={SEARCH_ICON}
+          alt="검색 아이콘"
+          onClick={() => navigate('/search')}
+        />
+      </Button>
     </StyledInput>
   );
 };
@@ -27,6 +36,9 @@ const Input = styled.input`
   font-size: ${({ theme }) => theme.fontsize.DEFAULT};
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   color: ${({ theme }) => theme.colors.TEXT_BLACK};
+`;
+const Button = styled.button`
+  padding-top: 3px;
 `;
 
 export default SearchBarSquare;

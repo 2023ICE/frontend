@@ -8,7 +8,7 @@ const LogInPage = () => {
     <LogInBox>
       <Title>로그인</Title>
       <LogInForm />
-      <SignUpBtn onClick={() => navigate('/signUp')}>회원가입</SignUpBtn>
+      <SignUpBtn onClick={() => navigate('/join')}>회원가입</SignUpBtn>
     </LogInBox>
   );
 };

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import HiddenBtn from './HiddenBtn';
 
-const LogInInput = ({
+const AuthInput = ({
   inputId,
   label,
   type,
@@ -9,12 +9,13 @@ const LogInInput = ({
   toggleEye,
   eyeState,
 }) => {
+  let hasHiddenBtn = ['password', 'checkPwd'].includes(inputId);
   return (
     <StyledInput>
       <Label htmlFor={inputId}>{label}</Label>
       <InputWrapper>
         <Input id={inputId} type={type} placeholder={placeholder} />
-        {inputId === 'password' && (
+        {hasHiddenBtn && (
           <HiddenBtn toggleEye={toggleEye} eyeState={eyeState} />
         )}
       </InputWrapper>
@@ -51,4 +52,4 @@ const Input = styled.input`
   }
 `;
 
-export default LogInInput;
+export default AuthInput;

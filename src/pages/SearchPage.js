@@ -1,18 +1,18 @@
 import styled from 'styled-components';
-import SearchBar_Square from '../components/ui/SearchBar_Square';
+import SearchResultBox from '../components/ui/SearchResultBox';
+import SearchBar_Line from '../components/ui/SearchBar_Line';
+import PageLayout from '../components/layout/PageLayout';
+import SEARCH_RESULT_DATA from '../assets/dummy_data/searchPageData.json';
 
 const SearchPage = () => {
   return (
     <ContentWrapper>
       <TiTle>Aller Check</TiTle>
-      <SearchBar_Square />
+      <SearchBar_Line />
       <ListWrapper>
-        <ResultBox />
-        <ResultBox />
-        <ResultBox />
-        <ResultBox />
-        <ResultBox />
-        <ResultBox />
+        {SEARCH_RESULT_DATA.result.map((data) => (
+          <SearchResultBox key={name} data={data} />
+        ))}
       </ListWrapper>
     </ContentWrapper>
   );
@@ -27,23 +27,18 @@ const ContentWrapper = styled.div`
   gap: 15px;
 `;
 const TiTle = styled.p`
-  font-size: 28px;
-  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontsize.TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
 `;
 const ListWrapper = styled.div`
   padding: 10px 5px;
   width: 100%;
-  max-height: 80%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 15px;
   overflow: scroll;
 `;
-const ResultBox = styled.div`
-  width: 100%;
-  min-height: 160px;
-  border-radius: 8px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
-`;
+
 export default SearchPage;

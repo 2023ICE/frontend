@@ -1,0 +1,28 @@
+{
+  "result": [
+    {
+      "name": "양념게장",
+      "imageUrl": "https://dksalkldaskl",
+      "ingredient": ["게"],
+      "cause": ["갑각류"]
+    },
+    {
+      "name": "양념치킨",
+      "imageUrl": "https://dsadsafas",
+      "ingredient": ["우유", "밀"],
+      "cause": ["유제품", "밀"]
+    },
+    {
+      "name": "양념감자",
+      "imageUrl": "https://grsgwfgwfas",
+      "ingredient": [],
+      "cause": []
+    },
+    {
+      "name": "양념소스 스테이크",
+      "imageUrl": "https://example.com/image.jpg",
+      "ingredient": ["소고기"],
+      "cause": ["육류"]
+    }
+  ]
+}

@@ -6,17 +6,15 @@ import SEARCH_RESULT_DATA from '../assets/dummy_data/searchPageData.json';
 
 const SearchPage = () => {
   return (
-    <PageLayout>
-      <ContentWrapper>
-        <TiTle>Aller Check</TiTle>
-        <SearchBar_Line />
-        <ListWrapper>
-          {SEARCH_RESULT_DATA.result.map((data) => (
-            <SearchResultBox key={name} data={data} />
-          ))}
-        </ListWrapper>
-      </ContentWrapper>
-    </PageLayout>
+    <ContentWrapper>
+      <TiTle>Aller Check</TiTle>
+      <SearchBar_Line />
+      <ListWrapper>
+        {SEARCH_RESULT_DATA.result.map((data) => (
+          <SearchResultBox key={name} data={data} />
+        ))}
+      </ListWrapper>
+    </ContentWrapper>
   );
 };
 

@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import AddComma from '../../utils/AddComma';
 import DEFAULT_IMG from '../../assets/images/default_img.svg';
+import { useNavigate } from 'react-router-dom';
 
 const SearchResultBox = ({ data }) => {
   const { name, imageUrl, ingredient, cause } = data;
+  const navigate = useNavigate();
 
   return (
-    <ResultBoxContainer>
+    <ResultBoxContainer onClick={() => navigate('/results')}>
       <ImgBox>
         <FoodImg src={DEFAULT_IMG} />
       </ImgBox>
@@ -36,6 +38,7 @@ const ResultBoxContainer = styled.div`
   gap: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 `;
 const ImgBox = styled.div`
   width: 120px;

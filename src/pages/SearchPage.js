@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import SearchResultBox from '../components/ui/SearchResultBox';
 import SearchBar_Line from '../components/ui/SearchBar_Line';
-import PageLayout from '../components/layout/PageLayout';
 import SEARCH_RESULT_DATA from '../assets/dummy_data/searchPageData.json';
 
 const SearchPage = () => {
@@ -11,7 +10,10 @@ const SearchPage = () => {
       <SearchBar_Line />
       <ListWrapper>
         {SEARCH_RESULT_DATA.result.map((data) => (
-          <SearchResultBox key={name} data={data} />
+          <SearchResultBox
+            key={data.name}
+            data={data}
+          />
         ))}
       </ListWrapper>
     </ContentWrapper>

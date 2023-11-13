@@ -1,41 +1,56 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 
 const AllergyForm = () => {
-  const allergyData = ['난류', '돼지고기', '소고기', '계란', '복숭아', '땅콩', '잣', '오징어', '새우', '밀', '고등어', '조개류', '토마토'];
+  const allergyData = [
+    '난류',
+    '갑각류',
+    '생선류',
+    '견과류',
+    '육류',
+    '밀',
+    '우유',
+    '과일',
+  ];
   const [selectedAllergy, setSelectedAllergy] = useState([]);
 
   const handleSelect = (item) => {
     if (selectedAllergy.includes(item)) {
-      setSelectedAllergy(selectedAllergy.filter((selectedItem) => selectedItem !== item));
+      setSelectedAllergy(
+        selectedAllergy.filter((selectedItem) => selectedItem !== item)
+      );
     } else {
       setSelectedAllergy([...selectedAllergy, item]);
     }
   };
 
   const handleSubmit = async () => {
-    const apiUrl = "/api/allergies";
-    const accessToken = "YOUR_ACCESS_TOKEN";
+    const apiUrl = '/api/allergies';
+    const accessToken = 'YOUR_ACCESS_TOKEN';
 
     try {
-      const response = await axios.post(apiUrl, {
-        allergyInfo: selectedAllergy,
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
+      const response = await axios.post(
+        apiUrl,
+        {
+          allergyInfo: selectedAllergy,
         },
-      });
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       if (response.status === 200) {
         const result = response.data;
-        console.log("message:", result);
+        console.log('message:', result);
       } else {
-        console.error("???");
+        console.error('???');
       }
     } catch (error) {
-      console.error("???:", error);
+      console.error('???:', error);
     }
   };
 
@@ -43,10 +58,12 @@ const AllergyForm = () => {
 
   return (
     <Wrapper className="wrap">
-      <AllergyList className="allergy-list">  
+      <AllergyList className="allergy-list">
         {allergyData.map((item, idx) => (
           <AllergyItem
-            className={`allergy-item ${selectedAllergy.includes(item) ? "active" : ""}`}
+            className={`allergy-item ${
+              selectedAllergy.includes(item) ? 'active' : ''
+            }`}
             key={idx}
             onClick={() => handleSelect(item)}
           >

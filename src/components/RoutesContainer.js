@@ -7,6 +7,7 @@ import SearchPage from '../pages/SearchPage';
 import AllergyPage from '../pages/AllergyPage';
 import PageLayout from './layout/PageLayout';
 import SideNav from './ui/SideNav';
+import ResultPage from '../pages/ResultPage';
 
 const RoutesContainer = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const RoutesContainer = () => {
         <Route path="/join" element={<SignUpPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/allergies" element={<AllergyPage />} />
+        <Route path="/results" element={<ResultPage />} />
       </Routes>
     </PageLayout>
   );

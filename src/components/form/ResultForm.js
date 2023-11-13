@@ -41,7 +41,7 @@ function ResultForm() {
             {item.cause.length > 0 && (
               <Description isAllergen={true}>
                 [{item.cause.map((causeItem) => `[${causeItem}]`).join(', ')}]
-                알러지를 유발합니다!!
+                알러지를 유발합니다!
               </Description>
             )}
             <ButtonGroup>

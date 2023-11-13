@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AddComma from '../container/AddComma';
+import AddComma from '../../utils/AddComma';
 import DEFAULT_IMG from '../../assets/images/default_img.svg';
 
 const SearchResultBox = ({ data }) => {

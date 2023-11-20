@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import PageLayout from '../components/layout/PageLayout';
 import SignUpForm from '../components/form/SignUpForm';
 import BACK_BTN_ICON from '../assets/icons/back_icon.svg';
 

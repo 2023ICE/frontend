@@ -1,51 +1,75 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { signup_schema } from '../../utils/validation/Schema';
 import AuthInput from '../ui/AuthInput';
 
 const SignUpForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(signup_schema),
+    mode: 'onChange',
+  });
+
   const [isOpen, setIsOpen] = useState({
     password: false,
-    checkPwd: false,
+    checkedPassword: false,
   });
+
   const toggleEye = (fieldName) => {
     setIsOpen((prevState) => ({
       ...prevState,
       [fieldName]: !prevState[fieldName],
     }));
   };
-  const onSubmit = (e) => {
-    e.preventDefault();
-  };
+
+  const onSubmit = (data) => console.log(data);
 
   return (
-    <StyledSignUpForm onSubmit={(e) => onSubmit(e)}>
+    <StyledSignUpForm onSubmit={handleSubmit(onSubmit)}>
       <AuthInput
-        inputId="name"
+        id="name"
+        name="name"
         label="이름"
-        placeholder="이름을 입력하세요."
         type="text"
+        placeholder="이름을 입력해주세요."
+        register={register}
+        errorMsg={errors.name?.message}
       />
       <AuthInput
-        inputId="email"
+        id="username"
+        name="username"
         label="이메일"
-        placeholder="이메일을 입력하세요."
         type="email"
+        placeholder="이메일을 입력해주세요."
+        register={register}
+        errorMsg={errors.username?.message}
       />
       <AuthInput
-        inputId="password"
+        id="password"
+        name="password"
         label="비밀번호"
-        placeholder="비밀번호를 입력하세요."
         type={isOpen.password ? 'text' : 'password'}
+        placeholder="비밀번호를 입력해주세요."
+        register={register}
+        errorMsg={errors.password?.message}
         toggleEye={() => toggleEye('password')}
         eyeState={isOpen.password}
       />
       <AuthInput
-        inputId="checkPwd"
+        id="checkedPassword"
+        name="checkedPassword"
         label="비밀번호 재입력"
-        placeholder="비밀번호를 재입력하세요"
-        type={isOpen.checkPwd ? 'text' : 'password'}
-        toggleEye={() => toggleEye('checkPwd')}
-        eyeState={isOpen.checkPwd}
+        type={isOpen.checkedPassword ? 'text' : 'password'}
+        placeholder="비밀번호를 재입력해주세요"
+        register={register}
+        errorMsg={errors.checkedPassword?.message}
+        toggleEye={() => toggleEye('checkedPassword')}
+        eyeState={isOpen.checkedPassword}
       />
       <SubmitBtn type="submit">회원가입</SubmitBtn>
     </StyledSignUpForm>

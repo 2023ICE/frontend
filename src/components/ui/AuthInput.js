@@ -2,24 +2,36 @@ import styled from 'styled-components';
 import HiddenBtn from './HiddenBtn';
 
 const AuthInput = ({
-  inputId,
+  id,
+  name,
   label,
   type,
   placeholder,
+  register,
+  errorMsg,
   toggleEye,
   eyeState,
 }) => {
-  let hasHiddenBtn = ['password', 'checkPwd'].includes(inputId);
+  let hasHiddenBtn = ['password', 'checkedPassword'].includes(id);
   return (
-    <StyledInput>
-      <Label htmlFor={inputId}>{label}</Label>
-      <InputWrapper>
-        <Input id={inputId} type={type} placeholder={placeholder} />
-        {hasHiddenBtn && (
-          <HiddenBtn toggleEye={toggleEye} eyeState={eyeState} />
-        )}
-      </InputWrapper>
-    </StyledInput>
+    <>
+      <StyledInput>
+        <Label htmlFor={id}>{label}</Label>
+        <InputWrapper>
+          <Input
+            id={id}
+            name={name}
+            type={type}
+            placeholder={placeholder}
+            {...register(name)}
+          />
+          {hasHiddenBtn && (
+            <HiddenBtn toggleEye={toggleEye} eyeState={eyeState} />
+          )}
+        </InputWrapper>
+      </StyledInput>
+      <p>{errorMsg && errorMsg}</p>
+    </>
   );
 };
 

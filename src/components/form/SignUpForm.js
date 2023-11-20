@@ -9,18 +9,23 @@ const SignUpForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signup_schema),
     mode: 'onChange',
   });
 
+  const value = watch();
+
   const [isOpen, setIsOpen] = useState({
     password: false,
     checkedPassword: false,
   });
 
-  const toggleEye = (fieldName) => {
+  const toggleEye = (event, fieldName) => {
+    event.preventDefault();
     setIsOpen((prevState) => ({
       ...prevState,
       [fieldName]: !prevState[fieldName],
@@ -34,6 +39,8 @@ const SignUpForm = () => {
       <AuthInput
         id="name"
         name="name"
+        value={value}
+        setValue={setValue}
         label="이름"
         type="text"
         placeholder="이름을 입력해주세요."
@@ -43,6 +50,8 @@ const SignUpForm = () => {
       <AuthInput
         id="username"
         name="username"
+        value={value}
+        setValue={setValue}
         label="이메일"
         type="email"
         placeholder="이메일을 입력해주세요."
@@ -52,23 +61,27 @@ const SignUpForm = () => {
       <AuthInput
         id="password"
         name="password"
+        value={value || ''}
+        setValue={setValue}
         label="비밀번호"
         type={isOpen.password ? 'text' : 'password'}
         placeholder="비밀번호를 입력해주세요."
         register={register}
         errorMsg={errors.password?.message}
-        toggleEye={() => toggleEye('password')}
+        toggleEye={(event) => toggleEye(event, 'password')}
         eyeState={isOpen.password}
       />
       <AuthInput
         id="checkedPassword"
         name="checkedPassword"
+        value={value || ''}
+        setValue={setValue}
         label="비밀번호 재입력"
         type={isOpen.checkedPassword ? 'text' : 'password'}
         placeholder="비밀번호를 재입력해주세요"
         register={register}
         errorMsg={errors.checkedPassword?.message}
-        toggleEye={() => toggleEye('checkedPassword')}
+        toggleEye={(event) => toggleEye(event, 'checkedPassword')}
         eyeState={isOpen.checkedPassword}
       />
       <SubmitBtn type="submit">회원가입</SubmitBtn>
@@ -83,7 +96,7 @@ const StyledSignUpForm = styled.form`
   gap: 15px;
 `;
 const SubmitBtn = styled.button`
-  width: 327px;
+  width: 100%;
   height: 48px;
   margin-top: 10px;
   border-radius: 8px;

@@ -9,14 +9,24 @@ const LogInForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(login_schema),
     mode: 'onChange',
   });
 
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleEye = (prev) => setIsOpen(!prev);
+  const value = watch();
+
+  const [isOpen, setIsOpen] = useState({
+    password: false,
+  });
+
+  const toggleEye = (event) => {
+    event.preventDefault();
+    setIsOpen((prev) => ({ ...prev, password: !prev.password }));
+  };
 
   const onSubmit = (data) => console.log(data);
 
@@ -25,6 +35,8 @@ const LogInForm = () => {
       <AuthInput
         id="username"
         name="username"
+        value={value || ''}
+        setValue={setValue}
         label="이메일"
         type="email"
         placeholder="이메일을 입력해주세요."
@@ -34,12 +46,14 @@ const LogInForm = () => {
       <AuthInput
         id="password"
         name="password"
+        value={value || ''}
+        setValue={setValue}
         label="비밀번호"
         type={isOpen.password ? 'text' : 'password'}
         placeholder="비밀번호를 입력해주세요."
         register={register}
         errorMsg={errors.password?.message}
-        toggleEye={() => toggleEye()}
+        toggleEye={(event) => toggleEye(event)}
         eyeState={isOpen.password}
       />
       <SubmitBtn type="submit">로그인</SubmitBtn>
@@ -48,13 +62,15 @@ const LogInForm = () => {
 };
 
 const StyledLogInForm = styled.form`
+  margin: 0 auto;
+  width: 327px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
 `;
 const SubmitBtn = styled.button`
-  width: 327px;
+  width: 100%;
   height: 48px;
   margin-top: 10px;
   border-radius: 8px;

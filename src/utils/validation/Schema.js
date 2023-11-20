@@ -27,6 +27,7 @@ export const signup_schema = yup.object().shape({
     ),
   checkedPassword: yup // 비밀번호 확인
     .string()
+    .required(Messages.CHECKED_PASSWORD)
     .oneOf([yup.ref('password')], Messages.CHECKED_PASSWORD),
   name: yup // 이름
     .string()

@@ -5,8 +5,8 @@ import CLOSE_EYE from '../../assets/icons/eye_close.svg';
 const HiddenBtn = ({ toggleEye, eyeState }) => {
   let eye = eyeState ? OPEN_EYE : CLOSE_EYE;
   return (
-    <StyledBtn>
-      <BtnIcon src={eye} onClick={() => toggleEye()} />
+    <StyledBtn onClick={(event) => toggleEye(event)}>
+      <BtnIcon src={eye} />
     </StyledBtn>
   );
 };

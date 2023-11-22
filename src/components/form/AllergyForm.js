@@ -104,6 +104,10 @@ const AllergyItem = styled.li`
   text-align: center;
   transition: all 0.2s;
 
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  }
+
   &.active {
     background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
     border: 1px solid palevioletred;

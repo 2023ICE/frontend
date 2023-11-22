@@ -1,10 +1,10 @@
 {
   "result": [
     {
-      "name": "양념게장",
+      "name": "짬탕",
       "imageUrl": "https://dksalkldaskl",
-      "ingredient": ["게"],
-      "cause": ["갑각류"]
+      "ingredient": ["게", "참치", "땅콩", "우유", "소면", "계란", "복숭아"],
+      "cause": ["갑각류", "생선", "견과류", "유제품", "밀", "계란"]
     }
   ]
 }

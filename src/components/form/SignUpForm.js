@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signup_schema } from '../../utils/validation/Schema';
+import { signupUser } from '../../api/signupUser';
 import AuthInput from '../ui/AuthInput';
 
 const SignUpForm = () => {
@@ -32,7 +33,10 @@ const SignUpForm = () => {
     }));
   };
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    const signupResponse = await signupUser(data);
+    console.log(signupResponse);
+  };
 
   return (
     <StyledSignUpForm onSubmit={handleSubmit(onSubmit)}>

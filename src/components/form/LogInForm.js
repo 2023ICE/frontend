@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { login_schema } from '../../utils/validation/Schema';
+import { loginUser } from '../../api/loginUser';
 import AuthInput from '../ui/AuthInput';
 
 const LogInForm = () => {
@@ -28,7 +29,10 @@ const LogInForm = () => {
     setIsOpen((prev) => ({ ...prev, password: !prev.password }));
   };
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    const loginResponse = await loginUser(data);
+    console.log(loginResponse);
+  };
 
   return (
     <StyledLogInForm onSubmit={handleSubmit(onSubmit)}>

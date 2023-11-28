@@ -90,12 +90,12 @@ const AllergyList = styled.ul`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  margin: 5px;
+  margin: 8px;
 `;
 
 const AllergyItem = styled.li`
   margin: 8px;
-  border: 1px solid #000;
+  border: 1px solid #ddd;
   border-radius: 20px;
   padding: 12px 15px;
   font-size: ${({ theme }) => theme.fontsize.MEDIUM_TXT};
@@ -103,6 +103,10 @@ const AllergyItem = styled.li`
   width: 95px;
   text-align: center;
   transition: all 0.2s;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  }
 
   &.active {
     background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
@@ -112,9 +116,9 @@ const AllergyItem = styled.li`
 `;
 
 const ButtonFrame = styled.button`
-  width: 327px;
-  height: 48px;
-  border-radius: 8px;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
   font-size: ${({ theme }) => theme.fontsize.DEFAULT};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   background-color: ${({ theme }) => theme.colors.MAIN_COLOR};

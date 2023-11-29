@@ -5,8 +5,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { signup_schema } from '../../utils/validation/Schema';
 import { signupUser } from '../../api/signupUser';
 import AuthInput from '../ui/AuthInput';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = () => {
+  const [isOpen, setIsOpen] = useState({
+    password: false,
+    checkedPassword: false,
+  });
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -20,11 +28,6 @@ const SignUpForm = () => {
 
   const value = watch();
 
-  const [isOpen, setIsOpen] = useState({
-    password: false,
-    checkedPassword: false,
-  });
-
   const toggleEye = (event, fieldName) => {
     event.preventDefault();
     setIsOpen((prevState) => ({
@@ -36,6 +39,16 @@ const SignUpForm = () => {
   const onSubmit = async (data) => {
     const signupResponse = await signupUser(data);
     console.log(signupResponse);
+
+    if (signupResponse?.status === 200) {
+      navigate('/login');
+    } else {
+      alert(signupResponse.response.data);
+      setValue('name', '');
+      setValue('username', '');
+      setValue('password', '');
+      setValue('checkedPassword', '');
+    }
   };
 
   return (

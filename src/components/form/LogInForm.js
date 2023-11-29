@@ -6,13 +6,16 @@ import { useCookies } from 'react-cookie';
 import { login_schema } from '../../utils/validation/Schema';
 import { loginUser } from '../../api/loginUser';
 import AuthInput from '../ui/AuthInput';
+import { useNavigate } from 'react-router-dom';
 
 const LogInForm = () => {
-  const [setCookie] = useCookies(['accessToken', 'name']);
+  const [Cookies, setCookie] = useCookies(['accessToken', 'name']);
 
   const [isOpen, setIsOpen] = useState({
     password: false,
   });
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -33,8 +36,19 @@ const LogInForm = () => {
 
   const onSubmit = async (data) => {
     const loginResponse = await loginUser(data);
-    setCookie('accessToken', loginResponse.data.accessToken, { path: '/' });
-    setCookie('name', loginResponse.data.name, { path: '/' });
+    console.log(loginResponse);
+
+    if (loginResponse?.status === 200) {
+      navigate('/');
+      await setCookie('accessToken', loginResponse.data.accessToken, {
+        path: '/',
+      });
+      await setCookie('name', loginResponse.data.name, { path: '/' });
+    } else {
+      alert(loginResponse.response.data);
+      setValue('username', '');
+      setValue('password', '');
+    }
   };
 
   return (

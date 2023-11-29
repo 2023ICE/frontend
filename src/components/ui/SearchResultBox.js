@@ -1,28 +1,27 @@
 import styled from 'styled-components';
 import AddComma from '../../utils/AddComma';
-import DEFAULT_IMG from '../../assets/images/default_img.svg';
 import { useNavigate } from 'react-router-dom';
 
 const SearchResultBox = ({ data }) => {
-  const { name, imageUrl, ingredient, cause } = data;
+  const { name, imageUrl, ingredients, causes } = data;
   const navigate = useNavigate();
 
   return (
     <ResultBoxContainer onClick={() => navigate('/results')}>
       <ImgBox>
-        <FoodImg src={DEFAULT_IMG} />
+        <FoodImg src={imageUrl} />
       </ImgBox>
       <Content>
         <FoodName>{name}</FoodName>
         <ResultBox>
-          <AddComma items={ingredient} color="#FF8A73" />
-          {ingredient.length !== 0 && (
+          <AddComma items={ingredients} color="#FF8A73" />
+          {ingredients.length !== 0 && (
             <>
               이(가) <br />
             </>
           )}
-          <AddComma items={cause} color="#FF8A73" />
-          {cause.length !== 0 ? `알러지에 위험합니다!` : `안전합니다!`}
+          <AddComma items={causes} color="#FF8A73" />
+          {causes.length !== 0 ? `알러지에 위험합니다!` : `안전합니다!`}
         </ResultBox>
       </Content>
     </ResultBoxContainer>
@@ -50,6 +49,7 @@ const ImgBox = styled.div`
 `;
 const FoodImg = styled.img`
   width: 100%;
+  height: 100%;
   object-fit: cover;
 `;
 const Content = styled.div`

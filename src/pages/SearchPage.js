@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 import SearchResultBox from '../components/ui/SearchResultBox';
 import SearchBar_Line from '../components/ui/SearchBar_Line';
-import SEARCH_RESULT_DATA from '../assets/dummy_data/searchPageData.json';
+import { useState } from 'react';
 
 const SearchPage = () => {
+  const [resultData, setResultData] = useState([]);
+
   return (
     <ContentWrapper>
       <TiTle>Aller Check</TiTle>
-      <SearchBar_Line />
+      <SearchBar_Line setData={setResultData} />
       <ListWrapper>
-        {SEARCH_RESULT_DATA.result.map((data) => (
+        {resultData?.map((data) => (
           <SearchResultBox key={data.name} data={data} />
         ))}
       </ListWrapper>

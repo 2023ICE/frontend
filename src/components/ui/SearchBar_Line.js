@@ -2,18 +2,25 @@ import styled from 'styled-components';
 import SEARCH_ICON from '../../assets/icons/search_pink.svg';
 import { useCookies } from 'react-cookie';
 import { getSearch } from '../../api/getSearch';
+import { useState } from 'react';
 
-const SearchBarLine = ({ ...attrProps }) => {
+const SearchBarLine = ({ setData, ...attrProps }) => {
   const [cookies] = useCookies(['accessToken']);
-  const recipeName = '김밥';
+  const [value, setValue] = useState('');
 
-  const onSubmit = () => {
-    getSearch(cookies.accessToken, recipeName);
+  const onSubmit = async () => {
+    const responseData = await getSearch(cookies.accessToken, value);
+    setData(responseData);
   };
 
   return (
     <StyledInput {...attrProps}>
-      <Input autoFocus placeholder="메뉴명을 입력하세요." />
+      <Input
+        autoFocus
+        placeholder="메뉴명을 입력하세요."
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
       <button onClick={onSubmit}>
         <img src={SEARCH_ICON} alt="검색 아이콘" />
       </button>

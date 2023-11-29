@@ -2,11 +2,18 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useCookies } from 'react-cookie';
 import { login_schema } from '../../utils/validation/Schema';
 import { loginUser } from '../../api/loginUser';
 import AuthInput from '../ui/AuthInput';
 
 const LogInForm = () => {
+  const [setCookie] = useCookies(['accessToken', 'name']);
+
+  const [isOpen, setIsOpen] = useState({
+    password: false,
+  });
+
   const {
     register,
     handleSubmit,
@@ -17,12 +24,7 @@ const LogInForm = () => {
     resolver: yupResolver(login_schema),
     mode: 'onChange',
   });
-
   const value = watch();
-
-  const [isOpen, setIsOpen] = useState({
-    password: false,
-  });
 
   const toggleEye = (event) => {
     event.preventDefault();
@@ -31,7 +33,8 @@ const LogInForm = () => {
 
   const onSubmit = async (data) => {
     const loginResponse = await loginUser(data);
-    console.log(loginResponse);
+    setCookie('accessToken', loginResponse.data.accessToken, { path: '/' });
+    setCookie('name', loginResponse.data.name, { path: '/' });
   };
 
   return (

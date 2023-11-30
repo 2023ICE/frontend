@@ -85,16 +85,14 @@ const Wrapper = styled.div`
   margin: 0 auto;
   padding: 40px 0;
 `;
-
 const AllergyList = styled.ul`
   display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 8px;
   flex-wrap: wrap;
-  margin: 8px;
 `;
-
 const AllergyItem = styled.li`
-  margin: 8px;
   border: 1px solid #ddd;
   border-radius: 20px;
   padding: 12px 15px;
@@ -114,7 +112,6 @@ const AllergyItem = styled.li`
     color: #fff;
   }
 `;
-
 const ButtonFrame = styled.button`
   width: 100%;
   height: 50px;

@@ -34,7 +34,7 @@ const ResultBoxContainer = styled.div`
   min-height: 160px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   cursor: pointer;

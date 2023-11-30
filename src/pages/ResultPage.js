@@ -5,21 +5,15 @@ import DefaultImage from '../assets/images/default_img.svg';
 const ResultPage = () => {
   return (
     <>
-      <ImageWrapper>
-        <img src={DefaultImage} alt="Default Image" />
-      </ImageWrapper>
+      <Img src={DefaultImage} alt="Default Image" />
       <ResultForm />
     </>
   );
 };
 
-const ImageWrapper = styled.div`
-  text-align: center;
-  margin bottom : auto;
-  img {
-    max-width: 100%;
-    height: auto;
-    max-height: 150px;
-  }
+const Img = styled.img`
+  display: block;
+  margin: 0 auto;
+  max-width: 130px;
 `;
 export default ResultPage;

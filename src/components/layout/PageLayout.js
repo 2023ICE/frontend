@@ -5,9 +5,8 @@ const PageLayout = ({ children, ...attrProps }) => {
 };
 
 const PageContainer = styled.div`
-  width: 393px;
-  height: 852px;
+  width: 100vw;
+  height: 100vh;
   padding: 30px 20px 20px 20px;
-  border: 1px solid black;
 `;
 export default PageLayout;

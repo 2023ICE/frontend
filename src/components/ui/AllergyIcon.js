@@ -1,4 +1,3 @@
-import React from 'react';
 import allergenicIngredientsMap from '../../assets/dummy_data/allergenicIngredientsMap.json';
 import styled from 'styled-components';
 import nutIcon from '../../assets/icons/nuts.svg';
@@ -54,25 +53,22 @@ const AllergenIconContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
 `;
-
 const AllergenItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 5px 5px 5px 5px;
 `;
-
 const AllergenIcon = styled.img`
   width: 23px;
   height: 23px;
   margin-bottom: 5px;
 `;
-
 const AllergenText = styled.div`
   font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
 `;
-
 const AllergenContainer = styled.div`
   padding: 15px;
   text-align: center;

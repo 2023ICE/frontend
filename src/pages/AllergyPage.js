@@ -5,24 +5,17 @@ import DefaultImage from '../assets/images/default_img.svg';
 const AllergyPage = () => {
   return (
     <>
-      <ImageWrapper>
-        <img src={DefaultImage} alt="Default Image" />
-      </ImageWrapper>
+      <Img src={DefaultImage} alt="Default Image" />
       <Title>알러지가 있는 재료를 선택해주세요</Title>
       <AllergyForm />
     </>
   );
 };
 
-const ImageWrapper = styled.div`
-  text-align: center;
-  margin-bottom: 20px;
-
-  img {
-    max-width: 100%;
-    height: auto;
-    max-height: 200px;
-  }
+const Img = styled.img`
+  display: block;
+  margin: 0 auto;
+  max-width: 130px;
 `;
 
 const Title = styled.p`

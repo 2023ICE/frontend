@@ -10,10 +10,7 @@ const SearchPage = () => {
       <SearchBar_Line />
       <ListWrapper>
         {SEARCH_RESULT_DATA.result.map((data) => (
-          <SearchResultBox
-            key={data.name}
-            data={data}
-          />
+          <SearchResultBox key={data.name} data={data} />
         ))}
       </ListWrapper>
     </ContentWrapper>

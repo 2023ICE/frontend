@@ -67,7 +67,7 @@ const LogInForm = () => {
 
 const StyledLogInForm = styled.form`
   margin: 0 auto;
-  width: 327px;
+  width: calc(100vw - 40px);
   display: flex;
   flex-direction: column;
   align-items: center;

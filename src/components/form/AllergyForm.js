@@ -61,7 +61,11 @@ const AllergyForm = () => {
         ))}
       </AllergyList>
       <div>
-        <ButtonFrame onClick={handleSubmit} className="btn-frame">
+        <ButtonFrame
+          onClick={handleSubmit}
+          className="btn-frame"
+          disabled={selectedAllergy.length === 0}
+        >
           선택하기
         </ButtonFrame>
       </div>
@@ -108,6 +112,9 @@ const ButtonFrame = styled.button`
   font-size: ${({ theme }) => theme.fontsize.DEFAULT};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  &:disabled {
+    background-color: gray;
+  }
   color: white;
   margin-top: 20px;
   text-align: center;

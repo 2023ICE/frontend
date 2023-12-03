@@ -3,7 +3,7 @@ import { Axios } from './Axios';
 export const signupUser = async (formData) => {
   try {
     const response = await Axios.post(
-      `/api/auth/sign-up`,
+      `http://3.38.247.55:8080//api/auth/sign-up`,
       JSON.stringify(formData),
       {
         headers: {

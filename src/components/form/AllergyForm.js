@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { putAllergy } from '../../api/putAllergy';
+import { useCookies } from 'react-cookie';
 
 const AllergyForm = () => {
+  const [cookies] = useCookies(['accessToken']);
   const allergyData = [
     '갑각류',
     '난류',
@@ -30,7 +32,7 @@ const AllergyForm = () => {
     try {
       console.log('Selected Allergy Before Axios:', selectedAllergy);
 
-      const response = await putAllergy(selectedAllergy);
+      const response = await putAllergy(selectedAllergy, cookies.accessToken);
 
       console.log('API Response:', response);
 

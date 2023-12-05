@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { putAllergy } from '../../api/putAllergy';
+import { useCookies } from 'react-cookie';
 
 const AllergyForm = () => {
+  const [cookies] = useCookies(['accessToken']);
   const allergyData = [
-    '난류',
     '갑각류',
-    '생선류',
+    '난류',
+    '생선',
+    '유제품',
     '견과류',
-    '육류',
     '밀',
-    '우유',
-    '과일',
+    '육류',
+    '과일류',
   ];
+
   const [selectedAllergy, setSelectedAllergy] = useState([]);
 
   const handleSelect = (item) => {
@@ -26,35 +29,23 @@ const AllergyForm = () => {
   };
 
   const handleSubmit = async () => {
-    const apiUrl = '/api/allergies';
-    const accessToken = 'YOUR_ACCESS_TOKEN';
-
     try {
-      const response = await axios.post(
-        apiUrl,
-        {
-          allergyInfo: selectedAllergy,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      console.log('Selected Allergy Before Axios:', selectedAllergy);
+
+      const response = await putAllergy(selectedAllergy, cookies.accessToken);
+
+      console.log('API Response:', response);
 
       if (response.status === 200) {
         const result = response.data;
-        console.log('message:', result);
+        console.log('Message:', result);
       } else {
-        console.error('???');
+        console.error('Unexpected Status Code:', response.status);
       }
     } catch (error) {
-      console.error('???:', error);
+      console.error('Error:', error);
     }
   };
-
-  console.log(selectedAllergy);
 
   return (
     <Wrapper className="wrap">
@@ -72,7 +63,11 @@ const AllergyForm = () => {
         ))}
       </AllergyList>
       <div>
-        <ButtonFrame onClick={handleSubmit} className="btn-frame">
+        <ButtonFrame
+          onClick={handleSubmit}
+          className="btn-frame"
+          disabled={selectedAllergy.length === 0}
+        >
           선택하기
         </ButtonFrame>
       </div>
@@ -119,6 +114,9 @@ const ButtonFrame = styled.button`
   font-size: ${({ theme }) => theme.fontsize.DEFAULT};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  &:disabled {
+    background-color: gray;
+  }
   color: white;
   margin-top: 20px;
   text-align: center;

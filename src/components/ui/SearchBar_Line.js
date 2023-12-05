@@ -7,20 +7,50 @@ import SEARCH_ICON from '../../assets/icons/search_pink.svg';
 const SearchBarLine = ({
   setData,
   page,
+  setPage,
   isLoading,
   setIsLoading,
   setErrorMsg,
+  isLastPage,
   setIsLastPage,
+  prevValue,
+  setPrevValue,
   ...attrProps
 }) => {
   const [cookies] = useCookies(['accessToken']);
   const [value, setValue] = useState('');
 
+  const loadData = async () => {
+    setIsLoading(true);
+    setData([]);
+    setIsLastPage(false);
+    setPage(1);
+    setPrevValue(value);
+
+    const responseData = await getSearch(cookies.accessToken, value, 1);
+
+    setData(responseData);
+    setIsLoading(false);
+
+    // 잘못된 검색을 요청한 경우
+    if (responseData?.code === 'ERR_BAD_REQUEST') {
+      setData([]);
+      setIsLoading(false);
+
+      if (
+        responseData?.response.data ===
+        '레시피를 가져올 수 있는 페이지를 넘었습니다.'
+      ) {
+        setIsLastPage(true);
+      }
+    }
+  };
+
   useEffect(() => {
     const reloadData = async () => {
+      if (page === 1 || isLastPage) return;
       try {
-        const responseData =
-          page !== 1 && (await getSearch(cookies.accessToken, value, page));
+        const responseData = await getSearch(cookies.accessToken, value, page);
 
         if (Array.isArray(responseData)) {
           setData((prevPostList) => [...prevPostList, ...responseData]);
@@ -28,7 +58,6 @@ const SearchBarLine = ({
         // 가져올 수 있는 페이지를 초과한 경우 (마지막 페이지)
         else if (responseData?.code === 'ERR_BAD_REQUEST') {
           setIsLoading(false);
-          setErrorMsg(responseData?.response?.data);
           setIsLastPage(true);
         }
       } catch (error) {
@@ -40,23 +69,14 @@ const SearchBarLine = ({
     if (isLoading) {
       reloadData();
     }
-  }, [isLoading, page, cookies.accessToken, value, setData]);
+  }, [isLoading, page, prevValue]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setPage(1);
+    setData([]);
     setIsLastPage(false);
-    const responseData = await getSearch(cookies.accessToken, value, 1);
-
-    // 잘못된 검색을 요청한 경우
-    if (responseData?.code === 'ERR_BAD_REQUEST') {
-      setData([]);
-      setIsLoading(false);
-      setErrorMsg(responseData?.response?.data);
-    }
-
-    setData(responseData);
-    setIsLoading(false);
+    await loadData();
   };
 
   return (

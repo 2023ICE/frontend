@@ -1,13 +1,15 @@
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import AddComma from '../../utils/AddComma';
 import { useNavigate } from 'react-router-dom';
 
-const SearchResultBox = ({ data }) => {
+// eslint-disable-next-line react/display-name
+const SearchResultBox = forwardRef(({ data }, ref) => {
   const { name, imageUrl, ingredients, causes } = data;
   const navigate = useNavigate();
 
   return (
-    <ResultBoxContainer onClick={() => navigate('/results')}>
+    <ResultBoxContainer ref={ref} onClick={() => navigate('/results')}>
       <ImgBox>
         <FoodImg src={imageUrl} />
       </ImgBox>
@@ -26,7 +28,7 @@ const SearchResultBox = ({ data }) => {
       </Content>
     </ResultBoxContainer>
   );
-};
+});
 
 const ResultBoxContainer = styled.div`
   width: 100%;

@@ -1,33 +1,40 @@
 import styled from 'styled-components';
 import SearchResultBox from '../components/ui/SearchResultBox';
 import SearchBar_Line from '../components/ui/SearchBar_Line';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const SearchPage = () => {
   const [resultData, setResultData] = useState([]);
-  const [isLoading, setIsLoading] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [isLastPage, setIsLastPage] = useState(false);
   const [page, setPage] = useState(1);
+  const [prevValue, setPrevValue] = useState('');
+
+  useEffect(() => {
+    console.log(isLoading);
+  }, [isLoading]);
 
   const navigate = useNavigate();
 
   const observer = useRef();
+
   const lastElementRef = useCallback(
     (node) => {
-      if (isLoading) return;
+      if (isLoading || isLastPage) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !isLastPage) {
-          // 추가 데이터를 로드하는 로직
-          setPage((prev) => prev + 1);
+        if (entries[0].isIntersecting && !isLoading) {
+          // 추가 데이터 로드하는 로직
+
+          !isLastPage && setPage((prev) => prev + 1);
           setIsLoading(true);
         }
       });
       if (node) observer.current.observe(node);
     },
-    [isLoading]
+    [isLoading, isLastPage]
   );
 
   return (
@@ -36,19 +43,26 @@ const SearchPage = () => {
       <SearchBar_Line
         setData={setResultData}
         page={page}
+        setPage={setPage}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
         setErrorMsg={setErrorMsg}
         setIsLastPage={setIsLastPage}
+        prevValue={prevValue}
+        setPrevValue={setPrevValue}
       />
       <ListWrapper>
-        {errorMsg && <p>{errorMsg}</p>}
-
         {resultData && resultData.length > 0 && (
           <>
             {resultData?.map((data, index) => {
               if (resultData.length === index + 1) {
-                return <div ref={lastElementRef} key={data.name}></div>;
+                return (
+                  <SearchResultBox
+                    ref={lastElementRef}
+                    key={data.name}
+                    data={data}
+                  />
+                );
               } else {
                 return <SearchResultBox key={data.name} data={data} />;
               }

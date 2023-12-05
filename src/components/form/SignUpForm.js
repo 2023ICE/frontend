@@ -43,7 +43,7 @@ const SignUpForm = () => {
     if (signupResponse?.status === 200) {
       navigate('/login');
     } else {
-      alert(signupResponse.response.data);
+      alert(signupResponse?.response?.data);
       setValue('name', '');
       setValue('username', '');
       setValue('password', '');

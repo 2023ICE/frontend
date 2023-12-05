@@ -52,6 +52,7 @@ const SearchPage = () => {
         setPrevValue={setPrevValue}
       />
       <ListWrapper>
+        {errorMsg && <p>{errorMsg}</p>}
         {resultData && resultData.length > 0 && (
           <>
             {resultData?.map((data, index) => {

@@ -43,6 +43,12 @@ const SearchBarLine = ({
       ) {
         setIsLastPage(true);
       }
+      if (
+        responseData?.response.data ===
+        '검색어에 해당하는 레시피를 찾을 수 없습니다.'
+      ) {
+        setErrorMsg(responseData.response.data);
+      }
     }
   };
 

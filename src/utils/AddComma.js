@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const AddComma = ({ items, color }) => {
   return (
     <>
-      {items.map((item, index) => (
+      {items?.map((item, index) => (
         <Item key={item} $color={color}>
           {item}
           {index !== items.length - 1 && (

@@ -13,6 +13,6 @@ export const signupUser = async (formData) => {
     );
     return response;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };

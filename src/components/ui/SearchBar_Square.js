@@ -6,14 +6,10 @@ const SearchBarSquare = ({ ...attrProps }) => {
   const navigate = useNavigate();
 
   return (
-    <StyledInput {...attrProps}>
-      <Input autoFocus placeholder="메뉴명을 입력하세요." />
+    <StyledInput {...attrProps} onClick={() => navigate('/search')}>
+      <Input>메뉴명을 입력하세요.</Input>
       <Button>
-        <img
-          src={SEARCH_ICON}
-          alt="검색 아이콘"
-          onClick={() => navigate('/search')}
-        />
+        <img src={SEARCH_ICON} alt="검색 아이콘" />
       </Button>
     </StyledInput>
   );
@@ -25,14 +21,16 @@ const StyledInput = styled.div`
   padding: 10px 15px;
   display: flex;
   justify-content: space-between;
-  align-self: center;
+  align-items: center;
   gap: 15px;
   border: 2px solid ${({ theme }) => theme.colors.MAIN_COLOR};
   border-radius: 8px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
-const Input = styled.input`
+const Input = styled.div`
   width: 100%;
-  border: none;
   font-size: ${({ theme }) => theme.fontsize.DEFAULT};
   font-weight: ${({ theme }) => theme.fontweight.REGULAR};
   color: ${({ theme }) => theme.colors.TEXT_BLACK};

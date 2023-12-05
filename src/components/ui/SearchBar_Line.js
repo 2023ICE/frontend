@@ -23,6 +23,7 @@ const SearchBarLine = ({
   const loadData = async () => {
     setIsLoading(true);
     setData([]);
+    setErrorMsg('');
     setIsLastPage(false);
     setPage(1);
     setPrevValue(value);
@@ -60,11 +61,13 @@ const SearchBarLine = ({
 
         if (Array.isArray(responseData)) {
           setData((prevPostList) => [...prevPostList, ...responseData]);
+          setErrorMsg('');
         }
         // 가져올 수 있는 페이지를 초과한 경우 (마지막 페이지)
         else if (responseData?.code === 'ERR_BAD_REQUEST') {
           setIsLoading(false);
           setIsLastPage(true);
+          setErrorMsg('');
         }
       } catch (error) {
         console.error(error);

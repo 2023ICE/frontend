@@ -29,10 +29,8 @@ const SearchBarLine = ({
     setPrevValue(value);
 
     const responseData = await getSearch(cookies.accessToken, value, 1);
-
     setData(responseData);
     setIsLoading(false);
-
     // 잘못된 검색을 요청한 경우
     if (responseData?.code === 'ERR_BAD_REQUEST') {
       setData([]);
@@ -59,6 +57,11 @@ const SearchBarLine = ({
       try {
         const responseData = await getSearch(cookies.accessToken, value, page);
 
+        if (responseData?.code === 'ERR_BAD_RESPONSE') {
+          setIsLoading(false);
+          return;
+        }
+
         if (Array.isArray(responseData)) {
           setData((prevPostList) => [...prevPostList, ...responseData]);
           setErrorMsg('');
@@ -70,7 +73,8 @@ const SearchBarLine = ({
           setErrorMsg('');
         }
       } catch (error) {
-        console.error(error);
+        console.error('error');
+        setIsLoading(false);
       } finally {
         setIsLoading(false);
       }

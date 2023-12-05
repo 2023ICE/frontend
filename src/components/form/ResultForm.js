@@ -1,47 +1,52 @@
-import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import AllergenIcons from '../ui/AllergyIcon';
-import resultData from '../../assets/dummy_data/resultData.json';
 import AddComma from '../../utils/AddComma';
+import BACK_BTN_ICON from '../../assets/icons/back_icon.svg';
 
-const ResultForm = () => {
-  const [allergenData, setAllergenData] = useState([]);
-  const username = '한상우';
-
-  useEffect(() => {
-    setAllergenData(resultData.result);
-  }, [resultData]);
+const ResultForm = ({ data, setCurrentFood }) => {
+  const { name, imageUrl, ingredients, causes } = data;
 
   return (
     <Container>
-      {allergenData.map((item) => (
-        <ResultContainer key={item.name}>
-          <Title>
-            {username}님의
-            <ItemName>{item.name}</ItemName>
-            알러지 정보
-          </Title>
+      <GoLogInBtn onClick={() => setCurrentFood([])}>
+        <img src={BACK_BTN_ICON} />
+      </GoLogInBtn>
 
-          {item.cause.length > 0 && (
+      <FoodName>{name}</FoodName>
+      <ImgBox>
+        <FoodImg src={imageUrl} />
+      </ImgBox>
+
+      <ResultContainer>
+        <ResultBox>
+          {ingredients.length > 0 ? (
             <>
-              <Description isAllergen={true}>
-                <AddComma items={item.cause} color="#FF8A73" />
-              </Description>
-              <Description>알러지를 유발합니다!</Description>
+              <div>
+                <SubTitle>알러지 정보</SubTitle>
+                <ShadowBox>
+                  <Description>
+                    <AddComma items={causes} color="#FF8A73" />
+                  </Description>
+                  <Description>알러지를 유발합니다!</Description>
+                </ShadowBox>
+              </div>
+
+              <div>
+                <SubTitle>알러지 유발 재료</SubTitle>
+                <ShadowBox>
+                  <IconBox>
+                    {ingredients.length > 0 && (
+                      <AllergenIcons allergens={ingredients} />
+                    )}
+                  </IconBox>
+                </ShadowBox>
+              </div>
             </>
+          ) : (
+            <Title>안전합니다!</Title>
           )}
-
-          <IconBox>
-            <Subtitle>알러지 유발 재료</Subtitle>
-            <AllergenIcons allergens={item.ingredient} />
-          </IconBox>
-
-          <ButtonGroup>
-            <Button>대체 레시피</Button>
-            <RightAlignedButton>비슷한 음식 추천</RightAlignedButton>
-          </ButtonGroup>
-        </ResultContainer>
-      ))}
+        </ResultBox>
+      </ResultContainer>
     </Container>
   );
 };
@@ -50,6 +55,30 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
+  height: 100%;
+`;
+const GoLogInBtn = styled.button`
+  width: 30px;
+  height: 30px;
+  align-self: start;
+`;
+const FoodName = styled.p`
+  font-size: ${({ theme }) => theme.fontsize.TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+`;
+const ImgBox = styled.div`
+  width: 220px;
+  height: 220px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25);
+`;
+const FoodImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 const ResultContainer = styled.div`
   margin: 10px;
@@ -58,15 +87,21 @@ const ResultContainer = styled.div`
   width: 100%;
 `;
 const Title = styled.h1`
-  font-size: ${({ theme }) => theme.fontsize.S_TITLE};
+  font-size: ${({ theme }) => theme.fontsize.TITLE};
+  font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+  color: ${({ theme }) => theme.colors.MAIN_COLOR};
   text-align: center;
   margin-bottom: 25px;
-  color: ${({ theme }) => theme.colors.TEXT_BLACK};
+`;
+const ResultBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 const Description = styled.p`
   font-size: ${({ theme }) => theme.fontsize.MEDIUM};
-  color: ${({ theme }) => theme.colors.TEXT_BLACK};
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
+  color: ${({ theme }) => theme.colors.TEXT_BLACK};
   text-align: center;
   margin-bottom: 15px;
 `;
@@ -75,49 +110,21 @@ const IconBox = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
   padding: 5px;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
 `;
-const ButtonGroup = styled.div`
-  height: 40px;
+const ShadowBox = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px 0;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
 `;
-const Subtitle = styled.p`
+const SubTitle = styled.p`
   font-size: ${({ theme }) => theme.fontsize.S_TITLE};
-  text-align: center;
+  text-align: start;
   margin-top: 15px;
   margin-bottom: 15px;
   font-weight: ${({ theme }) => theme.fontweight.SEMIBOLD};
   color: ${({ theme }) => theme.colors.TEXT_BLACK};
-`;
-const Button = styled.button`
-  width: 150px;
-  min-width: 130px;
-  padding: 12px;
-  background-color: ${({ theme }) => theme.colors.GRAY};
-  color: #fff;
-  font-size: ${({ theme }) => theme.fontsize.DEFAULT};
-  white-space: nowrap;
-  border-radius: 7px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
-  }
-`;
-const RightAlignedButton = styled(Button)`
-  margin-left: 10px;
-`;
-const ItemName = styled.div`
-  color: ${({ theme }) => theme.colors.MAIN_COLOR};
-  font-weight: ${({ theme }) => theme.fontweight.REGULAR};
-  margin-top: 15px;
-  margin-bottom: 15px;
 `;
 
 export default ResultForm;

@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import SearchResultBox from '../components/ui/SearchResultBox';
-import SearchBar_Line from '../components/ui/SearchBar_Line';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SearchBar_Line from '../components/ui/SearchBar_Line';
+import ResultForm from '../components/form/ResultForm';
 
 const SearchPage = () => {
   const [resultData, setResultData] = useState([]);
@@ -11,10 +12,7 @@ const SearchPage = () => {
   const [isLastPage, setIsLastPage] = useState(false);
   const [page, setPage] = useState(1);
   const [prevValue, setPrevValue] = useState('');
-
-  useEffect(() => {
-    console.log(isLoading);
-  }, [isLoading]);
+  const [currentFood, setCurrentFood] = useState([]);
 
   const navigate = useNavigate();
 
@@ -27,7 +25,6 @@ const SearchPage = () => {
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && !isLoading) {
           // 추가 데이터 로드하는 로직
-
           !isLastPage && setPage((prev) => prev + 1);
           setIsLoading(true);
         }
@@ -40,38 +37,52 @@ const SearchPage = () => {
   return (
     <ContentWrapper>
       <TiTle onClick={() => navigate('/')}>Aller Check</TiTle>
-      <SearchBar_Line
-        setData={setResultData}
-        page={page}
-        setPage={setPage}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        setErrorMsg={setErrorMsg}
-        setIsLastPage={setIsLastPage}
-        prevValue={prevValue}
-        setPrevValue={setPrevValue}
-      />
-      <ListWrapper>
-        {errorMsg && <p>{errorMsg}</p>}
-        {resultData && resultData.length > 0 && (
-          <>
-            {resultData?.map((data, index) => {
-              if (resultData.length === index + 1) {
-                return (
-                  <SearchResultBox
-                    ref={lastElementRef}
-                    key={data.name}
-                    data={data}
-                  />
-                );
-              } else {
-                return <SearchResultBox key={data.name} data={data} />;
-              }
-            })}
-          </>
-        )}
-      </ListWrapper>
-      {isLoading && <p>로딩중 !!</p>}
+
+      {currentFood.length !== 0 ? (
+        <ResultForm data={currentFood} setCurrentFood={setCurrentFood} />
+      ) : (
+        <>
+          <SearchBar_Line
+            setData={setResultData}
+            page={page}
+            setPage={setPage}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            setErrorMsg={setErrorMsg}
+            setIsLastPage={setIsLastPage}
+            prevValue={prevValue}
+            setPrevValue={setPrevValue}
+          />
+          <ListWrapper>
+            {errorMsg && <p>{errorMsg}</p>}
+            {resultData && resultData.length > 0 && (
+              <>
+                {resultData?.map((data, index) => {
+                  if (resultData.length === index + 1) {
+                    return (
+                      <SearchResultBox
+                        ref={lastElementRef}
+                        key={data.name}
+                        data={data}
+                        setCurrentFood={setCurrentFood}
+                      />
+                    );
+                  } else {
+                    return (
+                      <SearchResultBox
+                        key={data.name}
+                        data={data}
+                        setCurrentFood={setCurrentFood}
+                      />
+                    );
+                  }
+                })}
+              </>
+            )}
+          </ListWrapper>
+          {isLoading && <p>로딩중 !!</p>}
+        </>
+      )}
     </ContentWrapper>
   );
 };

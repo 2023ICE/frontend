@@ -1,5 +1,5 @@
-import allergenicIngredientsMap from '../../assets/dummy_data/allergenicIngredientsMap.json';
 import styled from 'styled-components';
+import allergenicIngredientsMap from '../../assets/dummy_data/allergenicIngredientsMap.json';
 import nutIcon from '../../assets/icons/nuts.svg';
 import eggIcon from '../../assets/icons/egg.svg';
 import crustacensICon from '../../assets/icons/crustacens.svg';
@@ -29,20 +29,16 @@ const AllergenIcons = ({ allergens }) => {
     <AllergenIconContainer>
       {allergens.map((allergenName, index) => {
         const allergenIngredient = allergenicIngredientsMap[allergenName];
-
         if (!allergenIngredient) {
           return null;
         }
-
         const allergenIcon = allergenIconsMap[allergenIngredient];
 
         return (
-          <AllergenContainer key={index}>
-            <AllergenItem>
-              <AllergenIcon src={allergenIcon} alt={`${allergenName} `} />
-              <AllergenText>{allergenName}</AllergenText>
-            </AllergenItem>
-          </AllergenContainer>
+          <div key={index}>
+            <AllergenIcon src={allergenIcon} alt={`${allergenName} `} />
+            <AllergenText>{allergenName}</AllergenText>
+          </div>
         );
       })}
     </AllergenIconContainer>
@@ -54,24 +50,17 @@ const AllergenIconContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-`;
-const AllergenItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 5px 5px 5px 5px;
+  gap: 20px;
 `;
 const AllergenIcon = styled.img`
-  width: 23px;
-  height: 23px;
-  margin-bottom: 5px;
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin: 0 auto;
 `;
 const AllergenText = styled.div`
-  font-size: ${({ theme }) => theme.fontsize.SMALL_TXT};
-`;
-const AllergenContainer = styled.div`
-  padding: 15px;
   text-align: center;
+  font-size: ${({ theme }) => theme.fontsize.MEDIUM_TXT};
 `;
 
 export default AllergenIcons;

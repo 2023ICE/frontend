@@ -1,15 +1,13 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import AddComma from '../../utils/AddComma';
-import { useNavigate } from 'react-router-dom';
 
 // eslint-disable-next-line react/display-name
-const SearchResultBox = forwardRef(({ data }, ref) => {
+const SearchResultBox = forwardRef(({ data, setCurrentFood }, ref) => {
   const { name, imageUrl, ingredients, causes } = data;
-  const navigate = useNavigate();
 
   return (
-    <ResultBoxContainer ref={ref} onClick={() => navigate('/results')}>
+    <ResultBoxContainer ref={ref} onClick={() => setCurrentFood(data)}>
       <ImgBox>
         <FoodImg src={imageUrl} />
       </ImgBox>

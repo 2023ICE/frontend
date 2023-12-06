@@ -4,7 +4,7 @@ import { putAllergy } from '../../api/putAllergy';
 import { useCookies } from 'react-cookie';
 
 const AllergyForm = () => {
-  const [cookies] = useCookies(['accessToken']);
+  const [cookies, setCookie] = useCookies(['accessToken', 'allergies']);
   const allergyData = [
     '갑각류',
     '난류',
@@ -16,7 +16,11 @@ const AllergyForm = () => {
     '과일류',
   ];
 
-  const [selectedAllergy, setSelectedAllergy] = useState([]);
+  const [selectedAllergy, setSelectedAllergy] = useState(cookies.allergy || []);
+
+  useEffect(() => {
+    setCookie('allergy', selectedAllergy);
+  }, [selectedAllergy, setCookie]);
 
   const handleSelect = (item) => {
     if (selectedAllergy.includes(item)) {

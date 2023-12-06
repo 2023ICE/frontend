@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { putAllergy } from '../../api/putAllergy';
 import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const AllergyForm = () => {
   const [cookies] = useCookies(['accessToken']);
@@ -17,6 +18,7 @@ const AllergyForm = () => {
   ];
 
   const [selectedAllergy, setSelectedAllergy] = useState([]);
+  const navigate = useNavigate();
 
   const handleSelect = (item) => {
     if (selectedAllergy.includes(item)) {
@@ -30,15 +32,9 @@ const AllergyForm = () => {
 
   const handleSubmit = async () => {
     try {
-      console.log('Selected Allergy Before Axios:', selectedAllergy);
-
       const response = await putAllergy(selectedAllergy, cookies.accessToken);
-
-      console.log('API Response:', response);
-
       if (response.status === 200) {
-        const result = response.data;
-        console.log('Message:', result);
+        navigate('/');
       } else {
         console.error('Unexpected Status Code:', response.status);
       }

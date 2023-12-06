@@ -3,7 +3,7 @@ import { Axios } from './Axios';
 export const putAllergy = async (selectedAllergy, accessToken) => {
   try {
     const response = await Axios.put(
-      'http://3.38.247.55:8080/api/allergy',
+      '/api/allergy',
       JSON.stringify({ allergies: selectedAllergy }),
       {
         headers: {

@@ -38,9 +38,8 @@ const SignUpForm = () => {
 
   const onSubmit = async (data) => {
     const signupResponse = await signupUser(data);
-    console.log(signupResponse);
 
-    if (signupResponse?.status === 200) {
+    if (signupResponse?.status === 201) {
       navigate('/login');
     } else {
       alert(signupResponse?.response?.data);

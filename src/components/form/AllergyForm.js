@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { putAllergy } from '../../api/putAllergy';
 import { getAllergy } from '../../api/getAllergy';
 import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const AllergyForm = () => {
   const [cookies] = useCookies(['accessToken']);
@@ -18,6 +19,7 @@ const AllergyForm = () => {
   ];
 
   const [selectedAllergy, setSelectedAllergy] = useState([]);
+  const navigate = useNavigate();
 
   const handleSelect = (item) => {
     if (selectedAllergy.includes(item)) {
@@ -33,7 +35,7 @@ const AllergyForm = () => {
     try {
       const response = await putAllergy(selectedAllergy, cookies.accessToken);
       if (response.status === 200) {
-        const result = response.data;
+        navigate('/');
       } else {
         console.error('Unexpected Status Code:', response.status);
       }

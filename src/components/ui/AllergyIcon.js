@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import allergenicIngredientsMap from '../../assets/dummy_data/allergenicIngredientsMap.json';
+import ingredient_groups from '../../assets/ingredient_groups.json'
 import nutIcon from '../../assets/icons/nuts.svg';
 import eggIcon from '../../assets/icons/egg.svg';
 import crustacensICon from '../../assets/icons/crustacens.svg';
@@ -28,7 +28,7 @@ const AllergenIcons = ({ allergens }) => {
   return (
     <AllergenIconContainer>
       {allergens.map((allergenName, index) => {
-        const allergenIngredient = allergenicIngredientsMap[allergenName];
+        const allergenIngredient = ingredient_groups[allergenName];
         if (!allergenIngredient) {
           return null;
         }

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { putAllergy } from '../../api/putAllergy';
+import { getAllergy } from '../../api/getAllergy';
 import { useCookies } from 'react-cookie';
 
 const AllergyForm = () => {
-  const [cookies, setCookie] = useCookies(['accessToken', 'allergies']);
+  const [cookies] = useCookies(['accessToken']);
   const allergyData = [
     '갑각류',
     '난류',
@@ -16,11 +17,7 @@ const AllergyForm = () => {
     '과일류',
   ];
 
-  const [selectedAllergy, setSelectedAllergy] = useState(cookies.allergy || []);
-
-  useEffect(() => {
-    setCookie('allergy', selectedAllergy);
-  }, [selectedAllergy, setCookie]);
+  const [selectedAllergy, setSelectedAllergy] = useState([]);
 
   const handleSelect = (item) => {
     if (selectedAllergy.includes(item)) {
@@ -34,15 +31,9 @@ const AllergyForm = () => {
 
   const handleSubmit = async () => {
     try {
-      console.log('Selected Allergy Before Axios:', selectedAllergy);
-
       const response = await putAllergy(selectedAllergy, cookies.accessToken);
-
-      console.log('API Response:', response);
-
       if (response.status === 200) {
         const result = response.data;
-        console.log('Message:', result);
       } else {
         console.error('Unexpected Status Code:', response.status);
       }
@@ -50,6 +41,23 @@ const AllergyForm = () => {
       console.error('Error:', error);
     }
   };
+
+  useEffect(() => {
+    const fetchAllergy = async () => {
+      try {
+        const response = await getAllergy(cookies.accessToken);
+        if (response.status === 200) {
+          setSelectedAllergy(response.data.allergies);
+        } else {
+          console.error('Unexpected Status Code:', response.status);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchAllergy();
+  }, []);
 
   return (
     <Wrapper className="wrap">

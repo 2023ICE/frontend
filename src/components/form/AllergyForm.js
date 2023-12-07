@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { putAllergy } from '../../api/putAllergy';
+import { getAllergy } from '../../api/getAllergy';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -42,6 +43,23 @@ const AllergyForm = () => {
       console.error('Error:', error);
     }
   };
+
+  useEffect(() => {
+    const fetchAllergy = async () => {
+      try {
+        const response = await getAllergy(cookies.accessToken);
+        if (response.status === 200) {
+          setSelectedAllergy(response.data.allergies);
+        } else {
+          console.error('Unexpected Status Code:', response.status);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchAllergy();
+  }, []);
 
   return (
     <Wrapper className="wrap">

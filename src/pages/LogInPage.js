@@ -14,7 +14,7 @@ const LogInPage = () => {
 };
 
 const LogInBox = styled.div`
-  margin: 230px auto 0;
+  margin: 100px auto 0;
   display: flex;
   flex-direction: column;
 `;

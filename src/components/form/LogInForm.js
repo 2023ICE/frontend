@@ -39,7 +39,7 @@ const LogInForm = () => {
     console.log(loginResponse);
 
     if (loginResponse?.status === 200) {
-      navigate('/');
+      navigate('/allergies');
       await setCookie('accessToken', loginResponse.data.accessToken, {
         path: '/',
       });

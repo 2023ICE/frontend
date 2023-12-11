@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar_Line from '../components/ui/SearchBar_Line';
 import ResultForm from '../components/form/ResultForm';
+import LOADING_IMG from '../assets/images/loading.gif';
 
 const SearchPage = () => {
   const [resultData, setResultData] = useState([]);
@@ -80,7 +81,7 @@ const SearchPage = () => {
               </>
             )}
           </ListWrapper>
-          {isLoading && <p>로딩중 !!</p>}
+          {isLoading && <Img src={LOADING_IMG} />}
         </>
       )}
     </ContentWrapper>
@@ -110,5 +111,9 @@ const ListWrapper = styled.div`
   gap: 15px;
   overflow: scroll;
 `;
+const Img = styled.img`
+  display: block;
+  margin: 0 auto;
+`
 
 export default SearchPage;

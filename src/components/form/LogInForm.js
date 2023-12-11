@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useCookies } from 'react-cookie';
-import { login_schema } from '../../utils/validation/Schema';
-import { loginUser } from '../../api/loginUser';
 import { useNavigate } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { login_schema } from '../../utils/validation/Schema';
+import { useCookies } from 'react-cookie';
+import { loginUser } from '../../api/loginUser';
 import AuthInput from '../ui/AuthInput';
 
 const LogInForm = () => {
   const [Cookies, setCookie] = useCookies(['accessToken', 'name']);
-
   const [isOpen, setIsOpen] = useState({
     password: false,
   });
@@ -36,7 +35,6 @@ const LogInForm = () => {
 
   const onSubmit = async (data) => {
     const loginResponse = await loginUser(data);
-    console.log(loginResponse);
 
     if (loginResponse?.status === 200) {
       navigate('/allergies');

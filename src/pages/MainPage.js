@@ -11,11 +11,8 @@ const MainPage = () => {
 
   useEffect(() => {
     const checkToken = () => {
-      if (cookies.accessToken) {
-        console.log(cookies);
-      } else {
+      if (Object.keys(cookies.accessToken).length === 0) {
         navigate('/login');
-        console.log(cookies);
       }
     };
     checkToken();

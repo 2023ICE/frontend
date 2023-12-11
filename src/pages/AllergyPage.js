@@ -17,7 +17,6 @@ const Img = styled.img`
   margin: 0 auto;
   max-width: 130px;
 `;
-
 const Title = styled.p`
   margin-bottom: 30px;
   text-align: center;

@@ -1,9 +1,9 @@
-import GlobalStyle from './styles/GlobalStyle';
-import { Theme } from './styles/Theme';
+import { CookiesProvider } from 'react-cookie';
 import { BrowserRouter } from 'react-router-dom';
+import { Theme } from './styles/Theme';
+import GlobalStyle from './styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import RoutesContainer from './components/RoutesContainer';
-import { CookiesProvider } from 'react-cookie';
 
 function App() {
   return (

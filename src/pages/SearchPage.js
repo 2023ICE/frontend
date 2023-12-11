@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import SearchResultBox from '../components/ui/SearchResultBox';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar_Line from '../components/ui/SearchBar_Line';
 import ResultForm from '../components/form/ResultForm';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { putAllergy } from '../../api/putAllergy';
 import { getAllergy } from '../../api/getAllergy';
